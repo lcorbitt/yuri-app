@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14
+    container_name: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+  api:
+    build:
+      context: ./api
+    container_name: nestjs_api
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=app_db
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    networks:
+      - app_network
+    command: ["npm", "run", "start:dev"]
+
+  client:
+    build:
+      context: ./client
+    container_name: react_client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    networks:
+      - app_network
+    command: ["npm", "start"]
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
