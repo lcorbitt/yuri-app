@@ -1,11 +1,11 @@
-version: '3.8'
+version: "3.8"
 
 services:
   db:
     image: postgres:14
     container_name: postgres
     environment:
-      POSTGRES_USER: user
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: app_db
     ports:
@@ -39,6 +39,12 @@ services:
     container_name: react_client
     ports:
       - "3000:3000"
+    volumes:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
     depends_on:
       - api
     networks:
