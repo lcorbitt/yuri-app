@@ -5,14 +5,15 @@ import { AppService } from './app.service';
 import { User } from './user.entity';
 import { CrimeReport } from './crime-report.entity';
 import { databaseConfig } from './config/database.config';
-
+import { CrimeReportController } from './crime-report.controller';
+import { CrimeReportService } from './services/crime-report.service';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(databaseConfig),
     TypeOrmModule.forFeature([User, CrimeReport]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, CrimeReportController],
+  providers: [AppService, CrimeReportService],
 })
 export class AppModule {}
