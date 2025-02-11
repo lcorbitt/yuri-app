@@ -1,5 +1,8 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100%;
 }
 
 .App-logo {
@@ -37,6 +40,12 @@
   }
 }
 
+/* Navbar */
+.mantine-AppShell-navbar {
+  width: 6rem;
+}
+
+/* Crime Report Form */
 .crime-report-form {
   input {
     padding: 0.5rem;
