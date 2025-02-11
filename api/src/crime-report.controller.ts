@@ -8,7 +8,6 @@ export class CrimeReportController {
 
   @Post()
   async create(@Body() data: Partial<CrimeReport>) {
-    console.log('IN API CONTROLLER', data);
     return this.crimeReportService.create(data);
   }
 

@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.crime-report-form {
+  input {
+    padding: 0.5rem;
+  }
+  /* .title-input-wrapper {
+    padding: 1rem;
+
+    input {
+      padding: 0.5rem;
+    }
+  } */
+}
+
+.geoapify-autocomplete-input {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.geoapify-autocomplete-items {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  margin-top: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

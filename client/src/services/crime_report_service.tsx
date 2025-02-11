@@ -6,6 +6,10 @@ const crimeReportService = {
     const response = await api.post('/crime-reports', data)
     return response.data
   },
+  findAll: async () => {
+    const response = await api.get('/crime-reports')
+    return response.data
+  },
 }
 
 export default crimeReportService

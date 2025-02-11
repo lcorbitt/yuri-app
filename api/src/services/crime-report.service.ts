@@ -11,7 +11,6 @@ export class CrimeReportService {
   ) {}
 
   async create(data: Partial<CrimeReport>): Promise<CrimeReport> {
-    console.log('IN API SERVICE', data);
     const crimeReport = this.crimeReportRepository.create(data);
     return await this.crimeReportRepository.save(crimeReport);
   }

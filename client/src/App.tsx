@@ -1,32 +1,29 @@
 // import logo from './logo.svg'
-import './App.css'
-import { CrimeReportForm } from './components/CrimeReportForm'
+import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { MantineProvider } from '@mantine/core'
+import { BrowserRouter } from 'react-router-dom'
+import { AppRoutes } from './routes'
 
 const queryClient = new QueryClient()
 
 function App() {
   document.title = 'Yuri'
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="App">
-        <header className="App-header">
-          {/* <img src={logo} className="App-logo" alt="logo" /> */}
-          <CrimeReportForm />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    </QueryClientProvider>
+    <MantineProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <div className="App">
+            <Toaster position="top-right" />
+
+            {/* <header className="App-header"> */}
+            {/* <img src={logo} className="App-logo" alt="logo" /> */}
+            {/* </header> */}
+          </div>
+          <AppRoutes />
+        </BrowserRouter>
+      </QueryClientProvider>
+    </MantineProvider>
   )
 }
 

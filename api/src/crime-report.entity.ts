@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   ManyToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 import { CrimeComment } from './crime-comment.entity';
@@ -37,9 +38,11 @@ export class CrimeReport {
   status: 'PENDING' | 'INVESTIGATING' | 'RESOLVED' | 'CLOSED';
 
   @ManyToOne(() => CrimeCategory, (category) => category.reports)
+  @JoinColumn({ name: 'category_id' })
   category: CrimeCategory;
 
   @ManyToOne(() => User, (user) => user.reports)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @OneToMany(() => CrimeComment, (comment) => comment.report)

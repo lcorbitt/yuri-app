@@ -1,5 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { CrimeReport } from "./crime-report.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { CrimeReport } from './crime-report.entity';
 
 @Entity()
 export class CrimeCategory {

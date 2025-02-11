@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ~/.docker-data/yuri/postgres:/var/lib/postgresql/data
     networks:
       - app_network
 
@@ -30,8 +30,7 @@ services:
     networks:
       - app_network
     command: >
-      sh -c "npm run docker:dev"
-
+      sh -c "npm run build && npm run migration:run && npm run start:dev"
   client:
     build:
       context: ./client

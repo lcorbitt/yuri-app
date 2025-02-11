@@ -1,9 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 import { CrimeComment } from './crime-comment.entity';
 import { CrimeInvestigation } from './crime-investigation.entity';
 import { CrimeReport } from './crime-report.entity';
 import { Notification } from './notification.entity';
-
 
 @Entity()
 export class User {
@@ -19,7 +25,11 @@ export class User {
   @Column()
   full_name: string;
 
-  @Column({ type: 'enum', enum: ['CITIZEN', 'OFFICER', 'ADMIN'], default: 'CITIZEN' })
+  @Column({
+    type: 'enum',
+    enum: ['CITIZEN', 'OFFICER', 'ADMIN'],
+    default: 'CITIZEN',
+  })
   role: 'CITIZEN' | 'OFFICER' | 'ADMIN';
 
   @Column({ nullable: true })
@@ -31,11 +41,10 @@ export class User {
   @Column({ type: 'boolean', default: true })
   active: boolean;
 
-
   @OneToMany(() => CrimeComment, (comment) => comment.author)
   comments: CrimeComment[];
 
-  @OneToMany(() => CrimeInvestigation, (investigation) => investigation.officer_id)
+  @OneToMany(() => CrimeInvestigation, (investigation) => investigation.officer)
   investigations: CrimeInvestigation[];
 
   @OneToMany(() => CrimeReport, (report) => report.user)

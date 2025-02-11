@@ -1,6 +1,16 @@
 import { useState } from 'react'
 import { useCreateCrimeReport } from '../hooks/mutation/crime_report'
-
+import {
+  TextInput,
+  Textarea,
+  Button,
+  Paper,
+  Stack,
+  Container,
+  Title,
+  Input,
+} from '@mantine/core'
+import { DateInput } from '@mantine/dates'
 import {
   GeoapifyGeocoderAutocomplete,
   GeoapifyContext,
@@ -15,143 +25,100 @@ export const CrimeReportForm = () => {
     date: new Date().toISOString().split('T')[0],
   })
 
+  const createCrimeReport = useCreateCrimeReport()
+
   const handleAddressSelect = (result) => {
-    console.log('Selected address:', result)
     setFormData((prev) => ({
       ...prev,
       location: result.properties.formatted,
     }))
   }
 
-  // const [isGettingLocation, setIsGettingLocation] = useState(false)
-  const createCrimeReport = useCreateCrimeReport()
+  const handleChange = (name: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
 
-  // const handleGetCurrentLocation = () => {
-  //   setIsGettingLocation(true)
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       async (position) => {
-  //         try {
-  //           const response = await fetch(
-  //             `https://api.opencagedata.com/geocode/v1/json?q=${position.coords.latitude}+${position.coords.longitude}&key=YOUR_API_KEY`
-  //           )
-  //           const data = await response.json()
-  //           const address = data.results[0].formatted
-  //           setFormData((prev) => ({ ...prev, location: address }))
-  //         } catch (error) {
-  //           console.error('Error getting address:', error)
-  //         } finally {
-  //           setIsGettingLocation(false)
-  //         }
-  //       },
-  //       (error) => {
-  //         console.error('Error getting location:', error)
-  //         setIsGettingLocation(false)
-  //       }
-  //     )
-  //   }
-  // }
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('IN HANDLE SUBMIT', formData)
-    createCrimeReport.mutate(formData)
-  }
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
-
-  const onSuggestionChange = (suggestions) => {
-    console.log('Current suggestions:', suggestions)
+    try {
+      await createCrimeReport.mutateAsync(formData)
+      setFormData({
+        title: '',
+        description: '',
+        location: '',
+        date: new Date().toISOString().split('T')[0],
+      })
+    } catch (error) {
+      // Error is handled by the mutation
+    }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="title">Title</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="location">Location</label>
-        <div className="flex gap-2">
-          <GeoapifyContext apiKey="1e74a0294756437d92e735bad855630f">
-            <GeoapifyGeocoderAutocomplete
-              placeholder="Enter address here"
-              value={formData.location}
-              type={'street'}
-              lang={'en'}
-              limit={10}
-              filterByCountryCode={['us']}
-              // filterByCircle={filterByCircle}
-              // filterByRect={filterByRect}
-              // filterByPlace={filterByPlace}
-              // biasByCountryCode={biasByCountryCode}
-              // biasByCircle={biasByCircle}
-              // biasByRect={biasByRect}
-              // biasByProximity={biasByProximity}
-              placeSelect={handleAddressSelect}
-              suggestionsChange={onSuggestionChange}
-            />
-          </GeoapifyContext>
+    <Container size="sm" my="xl">
+      <Paper shadow="sm" radius="md" p="xl" withBorder>
+        <Title order={2} ta="center" mb="xl">
+          Submit Crime Report
+        </Title>
 
-          {/* <input
-            type="text"
-            id="location"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Enter address"
-            required
-            className="flex-grow"
-          /> */}
-          {/* <button
-            type="button"
-            onClick={handleGetCurrentLocation}
-            disabled={isGettingLocation}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400"
-          >
-            {isGettingLocation ? 'Getting Location...' : '📍 Use My Location'}
-          </button> */}
-        </div>
-      </div>
-      <div>
-        <label htmlFor="date">Date</label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <button
-        type="submit"
-        disabled={createCrimeReport.isPending}
-        className="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:bg-gray-400"
-      >
-        {createCrimeReport.isPending ? 'Submitting...' : 'Submit Report'}
-      </button>
-    </form>
+        <form onSubmit={handleSubmit} className="crime-report-form">
+          <Stack gap="md">
+            <TextInput
+              className="title-input-wrapper"
+              label="Title"
+              placeholder="Enter report title"
+              required
+              value={formData.title}
+              onChange={(e) => handleChange('title', e.target.value)}
+            />
+
+            <Textarea
+              label="Description"
+              placeholder="Provide detailed description of the incident"
+              required
+              minRows={4}
+              value={formData.description}
+              onChange={(e) => handleChange('description', e.target.value)}
+            />
+
+            <div>
+              {/* <Input required mb="xs" value={formData.location} readOnly /> */}
+              <GeoapifyContext apiKey="1e74a0294756437d92e735bad855630f">
+                <GeoapifyGeocoderAutocomplete
+                  placeholder="Search for address"
+                  value={formData.location}
+                  type={'street'}
+                  lang={'en'}
+                  limit={5}
+                  filterByCountryCode={['us']}
+                  placeSelect={handleAddressSelect}
+                />
+              </GeoapifyContext>
+            </div>
+
+            <DateInput
+              label="Date of Incident"
+              placeholder="Select date"
+              value={formData.date ? new Date(formData.date) : null}
+              onChange={(date) =>
+                handleChange(
+                  'date',
+                  date ? date.toISOString().split('T')[0] : ''
+                )
+              }
+              required
+            />
+
+            <Button
+              type="submit"
+              loading={createCrimeReport.isPending}
+              fullWidth
+              mt="md"
+            >
+              {createCrimeReport.isPending ? 'Submitting...' : 'Submit Report'}
+            </Button>
+          </Stack>
+        </form>
+      </Paper>
+    </Container>
   )
 }
