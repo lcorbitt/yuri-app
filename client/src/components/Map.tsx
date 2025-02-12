@@ -19,7 +19,7 @@ const CrimeMap = () => {
       scrollWheelZoom={true}
       style={{ height: '500px', width: '100%' }}
     >
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png" />
       <Marker position={center} icon={defaultIcon}>
         <Popup>
           A pretty CSS3 popup. <br /> Easily customizable.

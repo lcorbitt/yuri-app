@@ -1,9 +1,21 @@
 import { useCrimeReports } from '../hooks/queries/crime_report'
-import { Table, Container, Title, Text, Loader } from '@mantine/core'
+import {
+  Table,
+  Container,
+  Title,
+  Text,
+  Loader,
+  ActionIcon,
+} from '@mantine/core'
 import Map from '../components/Map'
+import ColorSchemeContext from '../ColorSchemeContext'
+import { useContext } from 'react'
+import { SunIcon, MoonIcon } from '@radix-ui/react-icons'
 
 export const Home = () => {
   const { data: reports, isLoading, error } = useCrimeReports()
+  const colorSchemeContext = useContext(ColorSchemeContext)
+  const dark = colorSchemeContext.colorScheme === 'dark'
 
   if (isLoading) {
     return (
@@ -22,7 +34,20 @@ export const Home = () => {
   }
 
   return (
-    <Container size="xl" my="xl">
+    <Container size="xxl" p={0}>
+      <ActionIcon
+        variant="outline"
+        color={dark ? 'yellow' : 'blue'}
+        onClick={() => colorSchemeContext.onChange(dark ? 'light' : 'dark')}
+        title="Toggle color scheme"
+      >
+        {dark ? (
+          <SunIcon style={{ width: 18, height: 18 }} />
+        ) : (
+          <MoonIcon style={{ width: 18, height: 18 }} />
+        )}
+      </ActionIcon>
+
       <Map />
       <Title order={2} mb="xl">
         Reports

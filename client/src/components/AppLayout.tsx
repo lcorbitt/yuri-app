@@ -80,7 +80,12 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
       navbar={{ width: 250, breakpoint: 'sm' }}
       styles={{
         root: { display: 'flex', flexDirection: 'row', width: '100%' },
-        main: { flex: 1, paddingLeft: rem(96), paddingRight: 0 },
+        main: {
+          flex: 1,
+          paddingLeft: rem(96),
+          paddingRight: 0,
+          paddingTop: 0,
+        },
         navbar: { position: 'fixed', left: 0, top: 0, bottom: 0 },
       }}
     >
