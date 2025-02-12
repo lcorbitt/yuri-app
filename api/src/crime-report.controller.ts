@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { CrimeReport } from './crime-report.entity';
 import { CrimeReportService } from './services/crime-report.service';
 
@@ -14,5 +14,10 @@ export class CrimeReportController {
   @Get()
   async findAll() {
     return this.crimeReportService.findAll();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return this.crimeReportService.findOne(parseInt(id));
   }
 }

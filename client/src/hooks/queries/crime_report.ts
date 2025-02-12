@@ -7,3 +7,11 @@ export const useCrimeReports = () => {
     queryFn: () => crimeReportService.findAll(),
   })
 }
+
+export const useCrimeReport = (id: string) => {
+  return useQuery({
+    queryKey: ['crimeReport', id],
+    queryFn: () => crimeReportService.findOne(id),
+    enabled: !!id, // Only run the query if we have an ID
+  })
+}

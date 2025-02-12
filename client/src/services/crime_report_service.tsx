@@ -10,6 +10,10 @@ const crimeReportService = {
     const response = await api.get('/crime-reports')
     return response.data
   },
+  findOne: async (id: string) => {
+    const response = await api.get(`/crime-reports/${id}`)
+    return response.data
+  },
 }
 
 export default crimeReportService

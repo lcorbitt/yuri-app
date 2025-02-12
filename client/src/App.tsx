@@ -9,7 +9,7 @@ import { useState } from 'react'
 const queryClient = new QueryClient()
 
 function App() {
-  const [colorScheme, setColorScheme] = useState<'light' | 'dark'>('light')
+  const [colorScheme, setColorScheme] = useState<'dark' | 'light'>('dark')
 
   return (
     <ColorSchemeContext.Provider
