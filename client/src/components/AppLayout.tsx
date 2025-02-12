@@ -1,5 +1,13 @@
 import { AppShell, UnstyledButton, Stack, Text, rem } from '@mantine/core'
-import { IconHome, IconFileReport, IconLogin } from '@tabler/icons-react'
+import {
+  IconBrandLine,
+  IconFileReport,
+  IconLogin,
+  IconBell,
+  IconSettings,
+  IconPlus,
+  IconFileTextShield,
+} from '@tabler/icons-react'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 interface NavLinkProps {
@@ -22,7 +30,7 @@ const NavLink = ({ icon, label, active, onClick }: NavLinkProps) => (
   >
     <Stack align="center" gap="xs">
       {icon}
-      <Text size="sm">{label}</Text>
+      <Text size="xs">{label}</Text>
     </Stack>
   </UnstyledButton>
 )
@@ -32,11 +40,35 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation()
 
   const links = [
-    { path: '/', label: 'Home', icon: <IconHome size={20} /> },
+    {
+      path: '/',
+      label: 'Reports',
+      icon: <IconFileReport size={20} />,
+    },
+    {
+      path: '/investigations',
+      label: 'Investigations',
+      icon: <IconFileTextShield size={20} />,
+    },
+    {
+      path: '/chat',
+      label: 'Chat',
+      icon: <IconBrandLine size={20} />,
+    },
+    {
+      path: '/notifications',
+      label: 'Notifications',
+      icon: <IconBell size={20} />,
+    },
+    {
+      path: '/settings',
+      label: 'Settings',
+      icon: <IconSettings size={20} />,
+    },
     {
       path: '/report',
       label: 'Report Crime',
-      icon: <IconFileReport size={20} />,
+      icon: <IconPlus size={20} />,
     },
     { path: '/login', label: 'Login', icon: <IconLogin size={20} /> },
   ]
@@ -48,7 +80,7 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
       navbar={{ width: 250, breakpoint: 'sm' }}
       styles={{
         root: { display: 'flex', flexDirection: 'row', width: '100%' },
-        main: { flex: 1, paddingLeft: rem(96) },
+        main: { flex: 1, paddingLeft: rem(96), paddingRight: 0 },
         navbar: { position: 'fixed', left: 0, top: 0, bottom: 0 },
       }}
     >

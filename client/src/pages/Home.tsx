@@ -1,5 +1,6 @@
 import { useCrimeReports } from '../hooks/queries/crime_report'
 import { Table, Container, Title, Text, Loader } from '@mantine/core'
+import Map from '../components/Map'
 
 export const Home = () => {
   const { data: reports, isLoading, error } = useCrimeReports()
@@ -22,8 +23,9 @@ export const Home = () => {
 
   return (
     <Container size="xl" my="xl">
+      <Map />
       <Title order={2} mb="xl">
-        Recent Crime Reports
+        Reports
       </Title>
       <Table striped highlightOnHover>
         <Table.Thead>
