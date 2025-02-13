@@ -1,27 +1,12 @@
 import { useCrimeReports } from '../hooks/queries/crime_report'
-import {
-  Container,
-  Title,
-  Text,
-  Loader,
-  Box,
-  Paper,
-  Stack,
-  ActionIcon,
-  Group,
-} from '@mantine/core'
+import { Container, Text, Loader, Box, Paper, Stack } from '@mantine/core'
 import Map from '../components/Map'
-import ColorSchemeContext from '../ColorSchemeContext'
-import { useContext } from 'react'
-import { SunIcon, MoonIcon } from '@radix-ui/react-icons'
-import { useNavigate } from 'react-router-dom'
 import { CrimeReport } from '../../types/crime-report'
+import { IncidentCard } from '../components/IncidentCard'
+import { TopNavbar } from '../components/TopNavbar'
 
 export const Home = () => {
   const { data: reports, isLoading, error } = useCrimeReports()
-  const colorSchemeContext = useContext(ColorSchemeContext)
-  const dark = colorSchemeContext.colorScheme === 'dark'
-  const navigate = useNavigate()
 
   if (isLoading) {
     return (
@@ -41,22 +26,10 @@ export const Home = () => {
 
   return (
     <Container size="100%" p="md">
-      <Group justify="space-between" mb="md">
-        <Title order={2}>Incidents</Title>
-        <ActionIcon
-          variant="outline"
-          color={dark ? 'yellow' : 'blue'}
-          onClick={() => colorSchemeContext.onChange(dark ? 'light' : 'dark')}
-          title="Toggle color scheme"
-        >
-          {dark ? <SunIcon /> : <MoonIcon />}
-        </ActionIcon>
-      </Group>
-
       <Box
-        style={{ display: 'flex', gap: '1rem', height: 'calc(100vh - 6rem)' }}
+        style={{ display: 'flex', gap: '1rem', height: 'calc(100vh - 7.5rem)' }}
       >
-        {/* Reports List Container */}
+        {/* Incident List */}
         <Paper
           shadow="md"
           radius="md"
@@ -68,37 +41,18 @@ export const Home = () => {
           }}
         >
           <Stack p="md" gap="md">
-            {reports?.map((report: CrimeReport) => (
-              <Paper
-                key={report.id}
-                shadow="xs"
-                radius="sm"
-                p="md"
-                withBorder
-                style={{
-                  cursor: 'pointer',
-                  '&:hover': {
-                    backgroundColor: 'var(--mantine-color-gray-0)',
-                  },
-                }}
-                onClick={() => navigate(`/report/${report.id}`)}
-              >
-                <Title order={4}>{report.title}</Title>
-                <Text size="sm" c="dimmed">
-                  {new Date(report.date).toLocaleDateString()}
-                </Text>
-                <Text size="sm" lineClamp={2}>
-                  {report.description}
-                </Text>
-                <Text size="xs" c="dimmed" mt="xs">
-                  {report.location}
-                </Text>
-              </Paper>
-            ))}
+            {reports
+              ?.sort(
+                (a, b) =>
+                  new Date(b.date).getTime() - new Date(a.date).getTime()
+              )
+              .map((report: CrimeReport) => (
+                <IncidentCard key={report.id} report={report} />
+              ))}
           </Stack>
         </Paper>
 
-        {/* Map Container */}
+        {/* Map */}
         <Paper
           shadow="md"
           radius="md"

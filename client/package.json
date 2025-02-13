@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
+    "@fontsource/space-grotesk": "^5.1.1",
     "@geoapify/geocoder-autocomplete": "^2.1.0",
     "@geoapify/react-geocoder-autocomplete": "^2.0.1",
     "@mantine/core": "^7.16.3",

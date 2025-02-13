@@ -56,7 +56,7 @@ export const CrimeReportForm = () => {
     <Container size="sm" my="xl">
       <Paper shadow="sm" radius="md" p="xl" withBorder>
         <Title order={2} ta="center" mb="xl">
-          Submit Crime Report
+          Submit Incident Report
         </Title>
 
         <form onSubmit={handleSubmit} className="crime-report-form">

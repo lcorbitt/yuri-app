@@ -71,32 +71,18 @@ export const SideNavbar = () => {
 
   return (
     <AppShell.Navbar>
-      <Stack gap={0}>
-        {/* Logo */}
-        <UnstyledButton
-          onClick={handleHomeClick}
-          style={{
-            padding: '20px 20px',
-            width: '100%',
-          }}
-        >
-          <Stack align="center" gap="xs">
-            {/* Todo: Add logo here */}
-            <Text size="xl" fw={700} style={{ color: '#00A0A3' }}>
-              Yuri
-            </Text>
-          </Stack>
-        </UnstyledButton>
-
+      <Stack gap={0} h="100%" justify="center" align="center">
         {/* Nav Links */}
-        {links.map((link) => (
-          <NavLink
-            key={link.path}
-            {...link}
-            active={location.pathname === link.path}
-            onClick={() => navigate(link.path)}
-          />
-        ))}
+        <Stack gap={0} style={{ flex: 1 }} justify="center">
+          {links.map((link) => (
+            <NavLink
+              key={link.path}
+              {...link}
+              active={location.pathname === link.path}
+              onClick={() => navigate(link.path)}
+            />
+          ))}
+        </Stack>
       </Stack>
     </AppShell.Navbar>
   )
