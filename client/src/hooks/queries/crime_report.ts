@@ -8,10 +8,13 @@ export const useCrimeReports = () => {
   })
 }
 
-export const useCrimeReport = (id: string) => {
+export const useCrimeReport = (id: number | undefined) => {
   return useQuery({
     queryKey: ['crimeReport', id],
-    queryFn: () => crimeReportService.findOne(id),
-    enabled: !!id, // Only run the query if we have an ID
+    queryFn: () => {
+      if (!id) throw new Error('No ID provided')
+      return crimeReportService.findOne(id)
+    },
+    enabled: !!id,
   })
 }

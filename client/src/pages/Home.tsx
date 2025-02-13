@@ -15,6 +15,7 @@ import ColorSchemeContext from '../ColorSchemeContext'
 import { useContext } from 'react'
 import { SunIcon, MoonIcon } from '@radix-ui/react-icons'
 import { useNavigate } from 'react-router-dom'
+import { CrimeReport } from '../../types/crime-report'
 
 export const Home = () => {
   const { data: reports, isLoading, error } = useCrimeReports()
@@ -67,7 +68,7 @@ export const Home = () => {
           }}
         >
           <Stack p="md" gap="md">
-            {reports?.map((report) => (
+            {reports?.map((report: CrimeReport) => (
               <Paper
                 key={report.id}
                 shadow="xs"

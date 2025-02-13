@@ -20,6 +20,7 @@ export class CrimeReportService {
   }
 
   async findOne(id: number): Promise<CrimeReport> {
-    return await this.crimeReportRepository.findOne({ where: { id } });
+    const report = await this.crimeReportRepository.findOne({ where: { id } });
+    return report;
   }
 }

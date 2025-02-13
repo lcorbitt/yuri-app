@@ -4,7 +4,7 @@ import { useCrimeReport } from '../hooks/queries/crime_report'
 
 export const CrimeReportDetails = () => {
   const { id } = useParams()
-  const { data: report, isLoading, error } = useCrimeReport(id)
+  const { data: report, isLoading, error } = useCrimeReport(parseInt(id))
 
   if (isLoading) {
     return (
