@@ -1,4 +1,4 @@
-import { Paper, Title, Text } from '@mantine/core'
+import { Paper, Title, Text, Group } from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
 import { CrimeReport } from '../../types/crime-report'
 
@@ -24,14 +24,25 @@ export const IncidentCard = ({ report }: IncidentCardProps) => {
         },
       }}
     >
-      <Title order={4}>{report.title}</Title>
-      <Text size="sm" c="dimmed">
-        {new Date(report.date).toLocaleDateString()}
-      </Text>
-      <Text size="sm" lineClamp={2}>
+      <Group justify="space-between" align="flex-start">
+        <Title order={4} className="incident-card-title">
+          {report.title}
+        </Title>
+        <Text size="xs" fw={'bold'} className="incident-card-date">
+          {new Date(report.date).toLocaleDateString()}
+        </Text>
+      </Group>
+
+      <Text
+        size="xs"
+        lineClamp={2}
+        mt="sm"
+        className="incident-card-description"
+      >
         {report.description}
       </Text>
-      <Text size="xs" c="dimmed" mt="xs">
+
+      <Text size="xs" mt="xs" className="incident-card-location">
         {report.location}
       </Text>
     </Paper>

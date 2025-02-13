@@ -31,6 +31,34 @@
   transition: all 0.2s ease;
 }
 
+[data-mantine-color-scheme='dark'] .incident-card-title {
+  color: var(--mantine-color-gray-0);
+}
+
+[data-mantine-color-scheme='dark'] .incident-card-description {
+  color: var(--mantine-color-gray-3);
+}
+
+[data-mantine-color-scheme='dark'] .incident-card-location {
+  color: var(--mantine-color-gray-5);
+}
+
+[data-mantine-color-scheme='dark'] .incident-card-date {
+  color: var(--mantine-color-gray-5);
+}
+
+[data-mantine-color-scheme='light'] .incident-card-description {
+  color: var(--mantine-color-gray-9);
+}
+
+[data-mantine-color-scheme='light'] .incident-card-location {
+  color: var(--mantine-color-gray-6);
+}
+
+[data-mantine-color-scheme='light'] .incident-card-date {
+  color: var(--mantine-color-gray-6);
+}
+
 .incident-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);

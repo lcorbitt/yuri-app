@@ -8,6 +8,18 @@ export const theme = createTheme({
   headings: { fontFamily: 'Space Grotesk, sans-serif' },
   primaryColor: 'teal',
   colors: {
+    gray: [
+      '#F8F9FA',
+      '#E9ECEF',
+      '#DEE2E6',
+      '#CED4DA',
+      '#ADB5BD',
+      '#868E96',
+      '#495057',
+      '#343A40',
+      '#212529',
+      '#121212',
+    ],
     dark: [
       '#A1A2A5',
       '#909196',

@@ -1,11 +1,10 @@
-import { AppShell, UnstyledButton, Stack, Text } from '@mantine/core'
+import { AppShell, UnstyledButton, Stack } from '@mantine/core'
 import {
   IconBrandLine,
   IconFileReport,
   IconLogin,
   IconBell,
   IconSettings,
-  IconPlus,
   IconFileTextShield,
 } from '@tabler/icons-react'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -58,22 +57,15 @@ export const SideNavbar = () => {
       path: '/settings',
       icon: <IconSettings size={20} />,
     },
-    {
-      path: '/report',
-      icon: <IconPlus size={20} />,
-    },
     { path: '/login', icon: <IconLogin size={20} /> },
   ]
-
-  const handleHomeClick = () => {
-    navigate('/')
-  }
 
   return (
     <AppShell.Navbar>
       <Stack gap={0} h="100%" justify="center" align="center">
-        {/* Nav Links */}
-        <Stack gap={0} style={{ flex: 1 }} justify="center">
+        <Stack gap="md" style={{ flex: 1 }} justify="center">
+          {' '}
+          {/* Changed gap from 0 to "md" */}
           {links.map((link) => (
             <NavLink
               key={link.path}
