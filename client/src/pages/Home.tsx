@@ -1,9 +1,6 @@
 import { useCrimeReports } from '../hooks/queries/crime_report'
-import { Container, Text, Loader, Box, Paper, Stack } from '@mantine/core'
+import { Container, Text, Loader, Box, Paper, rem } from '@mantine/core'
 import Map from '../components/Map'
-import { CrimeReport } from '../../types/crime-report'
-import { IncidentCard } from '../components/IncidentCard'
-import { TopNavbar } from '../components/TopNavbar'
 import { IncidentList } from '../components/IncidentList'
 
 export const Home = () => {
@@ -26,21 +23,19 @@ export const Home = () => {
   }
 
   return (
-    <Container size="100%" p="md">
+    <Container size="100%" pb={rem(0)} px={rem(0)}>
       <Box
-        style={{ display: 'flex', gap: '1rem', height: 'calc(100vh - 7.5rem)' }}
+        style={{ display: 'flex', gap: '1rem', height: 'calc(100vh - 6rem)' }}
       >
         {/* Incident List */}
-        <Box style={{ width: '450px' }}>
+        <Box
+          style={{ width: '450px', paddingLeft: rem(16), paddingTop: rem(16) }}
+        >
           <IncidentList reports={reports} />
         </Box>
+
         {/* Map */}
-        <Paper
-          shadow="md"
-          radius="md"
-          withBorder
-          style={{ flex: 1, height: '100%' }}
-        >
+        <Paper shadow="md" style={{ flex: 1, height: '100%' }}>
           <Map />
         </Paper>
       </Box>

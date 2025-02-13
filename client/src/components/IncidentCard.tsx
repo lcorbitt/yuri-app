@@ -1,8 +1,6 @@
 import { Paper, Title, Text } from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
 import { CrimeReport } from '../../types/crime-report'
-import { useContext } from 'react'
-import ColorSchemeContext from '../ColorSchemeContext'
 
 interface IncidentCardProps {
   report: CrimeReport
@@ -10,7 +8,6 @@ interface IncidentCardProps {
 
 export const IncidentCard = ({ report }: IncidentCardProps) => {
   const navigate = useNavigate()
-  const { colorScheme } = useContext(ColorSchemeContext)
 
   return (
     <Paper
