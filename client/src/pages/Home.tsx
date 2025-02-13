@@ -4,6 +4,7 @@ import Map from '../components/Map'
 import { CrimeReport } from '../../types/crime-report'
 import { IncidentCard } from '../components/IncidentCard'
 import { TopNavbar } from '../components/TopNavbar'
+import { IncidentList } from '../components/IncidentList'
 
 export const Home = () => {
   const { data: reports, isLoading, error } = useCrimeReports()
@@ -30,28 +31,9 @@ export const Home = () => {
         style={{ display: 'flex', gap: '1rem', height: 'calc(100vh - 7.5rem)' }}
       >
         {/* Incident List */}
-        <Paper
-          shadow="md"
-          radius="md"
-          withBorder
-          style={{
-            flex: '0 0 350px',
-            height: '100%',
-            overflow: 'auto',
-          }}
-        >
-          <Stack p="md" gap="md">
-            {reports
-              ?.sort(
-                (a, b) =>
-                  new Date(b.date).getTime() - new Date(a.date).getTime()
-              )
-              .map((report: CrimeReport) => (
-                <IncidentCard key={report.id} report={report} />
-              ))}
-          </Stack>
-        </Paper>
-
+        <Box style={{ width: '450px' }}>
+          <IncidentList reports={reports} />
+        </Box>
         {/* Map */}
         <Paper
           shadow="md"

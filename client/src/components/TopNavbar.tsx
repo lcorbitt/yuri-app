@@ -16,9 +16,9 @@ export const TopNavbar = () => {
 
         <ActionIcon
           variant="outline"
-          color={dark ? 'yellow' : 'blue'}
+          color={dark ? 'white' : 'black'}
           onClick={() => colorSchemeContext.onChange(dark ? 'light' : 'dark')}
-          title="Toggle color scheme"
+          title="Toggle light/dark mode"
           mx="md"
         >
           {dark ? <SunIcon /> : <MoonIcon />}
