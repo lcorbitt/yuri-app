@@ -14,7 +14,9 @@ export const useCreateCrimeReport = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['crimeReports'] })
       // Dismiss loading and show success
-      toast.success('Crime report created successfully', { id: 'createReport' })
+      toast.success('Incident reported successfully', {
+        id: 'createReport',
+      })
     },
     onError: (error) => {
       console.error('Failed to create crime report:', error)

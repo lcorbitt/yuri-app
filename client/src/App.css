@@ -10,21 +10,6 @@
   width: 4rem;
 }
 
-/* .geoapify-autocomplete-input {
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  padding: 8px 12px;
-  font-size: 14px;
-  width: 100%;
-} */
-
-.geoapify-autocomplete-items {
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  margin-top: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 /* Incident Card */
 .incident-card {
   cursor: pointer;
@@ -85,7 +70,18 @@
   font-family: var(--mantine-font-family) !important;
 }
 
+[data-mantine-color-scheme='light'] .geoapify-autocomplete-input {
+  background-color: white !important;
+  border: 1px solid var(--mantine-color-gray-4) !important;
+}
+
 .geoapify-autocomplete-input::placeholder {
+  color: var(--mantine-color-placeholder) !important;
+  opacity: 1 !important;
+}
+
+[data-error] input::placeholder,
+[data-error] textarea::placeholder {
   color: var(--mantine-color-placeholder) !important;
   opacity: 1 !important;
 }

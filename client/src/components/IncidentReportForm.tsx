@@ -18,7 +18,7 @@ import {
 } from '@geoapify/react-geocoder-autocomplete'
 import '@geoapify/geocoder-autocomplete/styles/minimal.css'
 
-export const CrimeReportForm = () => {
+export const IncidentReportForm = () => {
   const createCrimeReport = useCreateCrimeReport()
   const [errors, setErrors] = useState({
     title: false,
@@ -69,7 +69,6 @@ export const CrimeReportForm = () => {
 
     try {
       await createCrimeReport.mutateAsync(formData)
-      toast.success('Report submitted successfully')
       setFormData({
         title: '',
         description: '',

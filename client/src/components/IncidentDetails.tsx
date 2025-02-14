@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom'
-import { Container, Text, Loader, Box, rem, Paper } from '@mantine/core'
+import { Container, Text, Loader, Box, rem, Paper, Title } from '@mantine/core'
 import { useCrimeReport } from '../hooks/queries/crime_report'
 import { IncidentList } from './IncidentList'
 import Map from './Map'
+import { extractCityState, extractStreetAddress } from '../utils/location'
 
 export const IncidentDetails = () => {
   const { id } = useParams()
@@ -39,27 +40,38 @@ export const IncidentDetails = () => {
   }
 
   return (
-    // <Container size="100%" p="md">
-    //   <Box
-    //     style={{ display: 'flex', gap: '1rem', height: 'calc(100vh - 6rem)' }}
-    //   >
-    //     <Title order={2}>{report.title}</Title>
-    //     <Text>Location: {report.location}</Text>
-    //     <Text>Date: {new Date(report.date).toLocaleDateString()}</Text>
-    //     <Text>Status: {report.status}</Text>
-    //   <Text mt="md">{report.description}</Text>
-    //   </Box>
-    // </Container>
-
     <Container size="100%" pb={rem(0)} px={rem(0)}>
       <Box
         style={{ display: 'flex', gap: '1rem', height: 'calc(100vh - 6rem)' }}
       >
-        {/* Incident List */}
         <Box
           style={{ width: '450px', paddingLeft: rem(16), paddingTop: rem(16) }}
         >
-          {/* <IncidentList reports={reports} /> */}
+          <Title order={2} c="gray.0">
+            {report.title}
+          </Title>
+          <Text
+            size="sm"
+            lineClamp={2}
+            mt="sm"
+            className="incident-card-description"
+          >
+            {extractCityState(report.location).city},{' '}
+            {extractCityState(report.location).state}
+          </Text>
+
+          <Text size="sm" className="incident-card-location">
+            {extractStreetAddress(report.location)}
+          </Text>
+          {/* <Text mt="sm" c="gray.6">
+            {new Date(report.date).toLocaleDateString()}
+          </Text> */}
+          <Text mt="sm" c="gray.6">
+            Status: {report.status}
+          </Text>
+          <Text mt="md" c="gray.6">
+            {report.description}
+          </Text>
         </Box>
 
         {/* Map */}
