@@ -10,13 +10,13 @@
   width: 4rem;
 }
 
-.geoapify-autocomplete-input {
+/* .geoapify-autocomplete-input {
   border: 1px solid #ced4da;
   border-radius: 4px;
   padding: 8px 12px;
   font-size: 14px;
   width: 100%;
-}
+} */
 
 .geoapify-autocomplete-items {
   border: 1px solid #ced4da;
@@ -40,7 +40,7 @@
 }
 
 [data-mantine-color-scheme='dark'] .incident-card-location {
-  color: var(--mantine-color-gray-5);
+  color: var(--mantine-color-gray-6);
 }
 
 [data-mantine-color-scheme='dark'] .incident-card-date {
@@ -70,4 +70,66 @@
 
 [data-mantine-color-scheme='light'] .incident-card:hover {
   background-color: var(--mantine-color-gray-1);
+}
+
+/* Geoapify Input Styling to match Mantine */
+.geoapify-autocomplete-input {
+  border: 1px solid var(--mantine-color-dark-4) !important;
+  border-radius: var(--mantine-radius-sm) !important;
+  padding: var(--mantine-spacing-sm) !important;
+  font-size: var(--mantine-font-size-sm) !important;
+  line-height: var(--mantine-line-height) !important;
+  width: 100% !important;
+  color: var(--mantine-color-text) !important;
+  background-color: var(--mantine-color-dark-6) !important;
+  font-family: var(--mantine-font-family) !important;
+}
+
+.geoapify-autocomplete-input::placeholder {
+  color: var(--mantine-color-placeholder) !important;
+  opacity: 1 !important;
+}
+
+.geoapify-autocomplete-input:focus {
+  border: 1px solid var(--mantine-color-teal-8) !important;
+}
+
+.geoapify-autocomplete-items {
+  margin-top: 4px !important;
+  border: 1px solid var(--mantine-color-gray-4) !important;
+  border-radius: var(--mantine-radius-sm) !important;
+  background-color: var(--mantine-color-white) !important;
+  box-shadow: var(--mantine-shadow-sm) !important;
+  font-family: var(--mantine-font-family) !important;
+}
+
+.geoapify-autocomplete-item {
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm) !important;
+  font-size: var(--mantine-font-size-sm) !important;
+  color: var(--mantine-color-text) !important;
+}
+
+.geoapify-autocomplete-item:hover {
+  background-color: var(--mantine-color-gray-0) !important;
+}
+
+[data-mantine-color-scheme='dark'] .geoapify-wrapper {
+  background-color: var(--mantine-color-dark-6) !important;
+}
+
+[data-mantine-color-scheme='dark'] .geoapify-autocomplete-input {
+  color: var(--mantine-color-white) !important;
+}
+
+[data-mantine-color-scheme='dark'] .geoapify-autocomplete-items {
+  background-color: var(--mantine-color-dark-6) !important;
+  border-color: var(--mantine-color-dark-4) !important;
+}
+
+[data-mantine-color-scheme='dark'] .geoapify-autocomplete-item {
+  color: var(--mantine-color-white) !important;
+}
+
+[data-mantine-color-scheme='dark'] .geoapify-autocomplete-item:hover {
+  background-color: var(--mantine-color-dark-5) !important;
 }

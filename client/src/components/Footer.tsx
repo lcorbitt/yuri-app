@@ -24,7 +24,7 @@ export const Footer = () => {
   })
 
   return (
-    <AppShell.Footer style={{ borderTop: 'none' }} h={rem(32)}>
+    <AppShell.Footer style={{ borderTop: 'none' }} h={rem(32)} px="md">
       <Group justify="flex-end" h="100%" px={rem(0)} gap="xs">
         <Text size="xs" c="dimmed">
           {formattedTime}

@@ -26,7 +26,8 @@ export const IncidentList = ({ reports }: IncidentListProps) => {
 
   const sortedReports = useMemo(() => {
     return filteredReports?.sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     )
   }, [filteredReports])
 
