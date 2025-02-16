@@ -129,3 +129,25 @@
 [data-mantine-color-scheme='dark'] .geoapify-autocomplete-item:hover {
   background-color: var(--mantine-color-dark-5) !important;
 }
+
+/* Navigation Link Styling */
+.nav-link {
+  transition: all 0.2s ease;
+  border-radius: var(--mantine-radius-sm);
+}
+
+[data-mantine-color-scheme='dark'] .nav-link:hover {
+  background-color: var(--mantine-color-dark-6);
+}
+
+[data-mantine-color-scheme='light'] .nav-link:hover {
+  background-color: var(--mantine-color-gray-1);
+}
+
+[data-mantine-color-scheme='dark'] .nav-link.active {
+  background-color: var(--mantine-color-dark-7);
+}
+
+[data-mantine-color-scheme='light'] .nav-link.active {
+  background-color: var(--mantine-color-gray-2);
+}

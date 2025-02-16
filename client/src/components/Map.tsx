@@ -1,9 +1,8 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import { LatLngExpression, Icon } from 'leaflet'
-import { useContext } from 'react'
+import { LatLngExpression, Icon, LatLng } from 'leaflet'
+import { useContext, useState } from 'react'
 import ColorSchemeContext from '../ColorSchemeContext'
 
-// Fix for default markers
 const defaultIcon = new Icon({
   iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
@@ -11,10 +10,16 @@ const defaultIcon = new Icon({
   iconAnchor: [12, 41],
 })
 
-const CrimeMap = () => {
-  const center: LatLngExpression = [40.585258, -105.084419]
+interface MapProps {
+  center?: LatLngExpression
+}
+
+const Map = ({
+  center = [40.585258, -105.084419] as LatLngExpression,
+}: MapProps) => {
   const { colorScheme } = useContext(ColorSchemeContext)
   const isDark = colorScheme === 'dark'
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   const tileUrl = isDark
     ? 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png'
@@ -22,14 +27,30 @@ const CrimeMap = () => {
 
   return (
     <MapContainer
+      key={`${center[0]}-${center[1]}`}
       center={center}
-      zoom={13}
+      zoom={15}
       scrollWheelZoom={true}
       style={{ height: '100%', width: '100%' }}
     >
       <TileLayer url={tileUrl} />
-      <Marker position={center} icon={defaultIcon}>
-        <Popup>
+      <Marker
+        position={center}
+        icon={defaultIcon}
+        eventHandlers={{
+          mouseover: (e) => {
+            if (!isPopupOpen) {
+              setIsPopupOpen(true)
+              e.target.openPopup()
+            }
+          },
+          mouseout: (e) => {
+            setIsPopupOpen(false)
+            e.target.closePopup()
+          },
+        }}
+      >
+        <Popup autoPan={false}>
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
       </Marker>
@@ -37,4 +58,4 @@ const CrimeMap = () => {
   )
 }
 
-export default CrimeMap
+export default Map

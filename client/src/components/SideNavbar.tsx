@@ -20,10 +20,15 @@ const NavLink = ({ icon, active, onClick }: NavLinkProps) => (
   <UnstyledButton
     onClick={onClick}
     style={{
-      padding: '20px 20px',
-      width: '100%',
-      borderRadius: '4px',
-      backgroundColor: active ? '#f0f0f0' : 'transparent',
+      width: '40px',
+      height: '40px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      color: active
+        ? 'var(--mantine-color-teal-4)'
+        : 'var(--mantine-color-dimmed)',
+      transition: 'all 0.2s ease',
     }}
   >
     <Stack align="center" gap="xs">
@@ -64,8 +69,6 @@ export const SideNavbar = () => {
     <AppShell.Navbar>
       <Stack gap={0} h="100%" justify="center" align="center">
         <Stack gap="md" style={{ flex: 1 }} justify="center">
-          {' '}
-          {/* Changed gap from 0 to "md" */}
           {links.map((link) => (
             <NavLink
               key={link.path}

@@ -1,3 +1,6 @@
+import axios from 'axios'
+import { LatLngExpression } from 'leaflet'
+
 export const extractCityState = (
   address: string
 ): { city: string; state: string } => {
@@ -23,4 +26,30 @@ export const extractCityState = (
 
 export const extractStreetAddress = (address: string): string => {
   return address.split(',')[0].trim()
+}
+
+export const getCoordinatesFromAddress = async (
+  address: string
+): Promise<LatLngExpression> => {
+  try {
+    const response = await axios.get(
+      `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(
+        address
+      )}&format=json&apiKey=1e74a0294756437d92e735bad855630f`
+    )
+
+    if (
+      response.data &&
+      response.data.results &&
+      response.data.results.length > 0
+    ) {
+      const { lat, lon } = response.data.results[0]
+      return [lat, lon] as LatLngExpression
+    }
+
+    throw new Error('No coordinates found for this address')
+  } catch (error) {
+    console.error('Error geocoding address:', error)
+    throw error
+  }
 }

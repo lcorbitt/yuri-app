@@ -1,15 +1,31 @@
 import { useParams } from 'react-router-dom'
 import { Container, Text, Loader, Box, rem, Paper, Title } from '@mantine/core'
 import { useCrimeReport } from '../hooks/queries/crime_report'
-import { IncidentList } from './IncidentList'
 import Map from './Map'
-import { extractCityState, extractStreetAddress } from '../utils/location'
+
+import {
+  extractCityState,
+  extractStreetAddress,
+  getCoordinatesFromAddress,
+} from '../utils/location'
+import { LatLngExpression } from 'leaflet'
+import { useEffect, useState } from 'react'
 
 export const IncidentDetails = () => {
   const { id } = useParams()
   const { data: report, isLoading, error } = useCrimeReport(parseInt(id))
+  const [mapCenter, setMapCenter] = useState<LatLngExpression | null>(null)
 
-  if (isLoading) {
+  useEffect(() => {
+    if (report && report.location) {
+      console.log('report.location', report.location)
+      getCoordinatesFromAddress(report.location)
+        .then((coords) => setMapCenter(coords))
+        .catch((err) => console.error('Error getting coordinates:', err))
+    }
+  }, [report])
+
+  if (isLoading || !mapCenter) {
     return (
       <Container
         style={{
@@ -47,7 +63,7 @@ export const IncidentDetails = () => {
         <Box
           style={{ width: '450px', paddingLeft: rem(16), paddingTop: rem(16) }}
         >
-          <Title order={2} c="gray.0">
+          <Title order={2} className="incident-card-title">
             {report.title}
           </Title>
           <Text
@@ -63,9 +79,6 @@ export const IncidentDetails = () => {
           <Text size="sm" className="incident-card-location">
             {extractStreetAddress(report.location)}
           </Text>
-          {/* <Text mt="sm" c="gray.6">
-            {new Date(report.date).toLocaleDateString()}
-          </Text> */}
           <Text mt="sm" c="gray.6">
             Status: {report.status}
           </Text>
@@ -76,7 +89,7 @@ export const IncidentDetails = () => {
 
         {/* Map */}
         <Paper shadow="md" style={{ flex: 1, height: '100%' }}>
-          <Map />
+          <Map center={mapCenter} />
         </Paper>
       </Box>
     </Container>
