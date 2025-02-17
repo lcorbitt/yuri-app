@@ -2,7 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CrimeReport } from '../../dto/crime_report'
 import crimeReportService from '../../services/crime_report_service'
 import { toast } from 'react-hot-toast'
-export const useCreateCrimeReport = () => {
+
+export const useCreateCrimeReport = (onSuccess?: () => void) => {
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -17,6 +18,7 @@ export const useCreateCrimeReport = () => {
       toast.success('Incident reported successfully', {
         id: 'createReport',
       })
+      onSuccess?.()
     },
     onError: (error) => {
       console.error('Failed to create crime report:', error)

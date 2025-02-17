@@ -18,7 +18,6 @@ export const IncidentDetails = () => {
 
   useEffect(() => {
     if (report && report.location) {
-      console.log('report.location', report.location)
       getCoordinatesFromAddress(report.location)
         .then((coords) => setMapCenter(coords))
         .catch((err) => console.error('Error getting coordinates:', err))

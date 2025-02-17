@@ -1,16 +1,7 @@
 import { useState } from 'react'
 import { useCreateCrimeReport } from '../hooks/mutation/crime_report'
 import { toast } from 'react-hot-toast'
-import {
-  TextInput,
-  Textarea,
-  Button,
-  Paper,
-  Stack,
-  Container,
-  Title,
-  Text,
-} from '@mantine/core'
+import { TextInput, Textarea, Button, Stack, Text } from '@mantine/core'
 import { DateInput } from '@mantine/dates'
 import {
   GeoapifyGeocoderAutocomplete,
@@ -18,8 +9,12 @@ import {
 } from '@geoapify/react-geocoder-autocomplete'
 import '@geoapify/geocoder-autocomplete/styles/minimal.css'
 
-export const IncidentReportForm = () => {
-  const createCrimeReport = useCreateCrimeReport()
+interface IncidentReportFormProps {
+  onSuccess?: () => void
+}
+
+export const IncidentReportForm = ({ onSuccess }: IncidentReportFormProps) => {
+  const createCrimeReport = useCreateCrimeReport(onSuccess)
   const [errors, setErrors] = useState({
     title: false,
     description: false,
@@ -87,100 +82,92 @@ export const IncidentReportForm = () => {
   }
 
   return (
-    <Container size="sm" my="xl">
-      <Paper shadow="sm" radius="md" p="xl" withBorder>
-        <Title order={2} ta="center" mb="xl">
-          Submit Incident Report
-        </Title>
+    <Stack gap="md">
+      <form onSubmit={handleSubmit} className="crime-report-form">
+        <Stack gap="md">
+          <TextInput
+            label={
+              <>
+                Title <span style={{ color: 'red' }}>*</span>
+              </>
+            }
+            placeholder="Enter report title"
+            value={formData.title}
+            onChange={(e) => handleChange('title', e.target.value)}
+            error={errors.title}
+          />
 
-        <form onSubmit={handleSubmit} className="crime-report-form">
-          <Stack gap="md">
-            <TextInput
-              label={
-                <>
-                  Title <span style={{ color: 'red' }}>*</span>
-                </>
-              }
-              placeholder="Enter report title"
-              value={formData.title}
-              onChange={(e) => handleChange('title', e.target.value)}
-              error={errors.title}
-            />
+          <Textarea
+            label={
+              <>
+                Description <span style={{ color: 'red' }}>*</span>
+              </>
+            }
+            placeholder="Provide detailed description of the incident"
+            minRows={4}
+            value={formData.description}
+            onChange={(e) => handleChange('description', e.target.value)}
+            error={errors.description}
+          />
 
-            <Textarea
-              label={
-                <>
-                  Description <span style={{ color: 'red' }}>*</span>
-                </>
-              }
-              placeholder="Provide detailed description of the incident"
-              minRows={4}
-              value={formData.description}
-              onChange={(e) => handleChange('description', e.target.value)}
-              error={errors.description}
-            />
-
-            <div>
-              <Text size="sm" fw={500} mb={4}>
-                Location <span style={{ color: 'red' }}>*</span>
-              </Text>
-              <div
-                style={{
-                  border: errors.location
-                    ? '1px solid var(--mantine-color-red-filled)'
-                    : 'none',
-                  borderRadius: '4px',
-                }}
-              >
-                <GeoapifyContext apiKey="1e74a0294756437d92e735bad855630f">
-                  <GeoapifyGeocoderAutocomplete
-                    placeholder="Search for address"
-                    value={formData.location}
-                    type={'street'}
-                    lang={'en'}
-                    limit={5}
-                    filterByCountryCode={['us']}
-                    placeSelect={handleAddressSelect}
-                  />
-                </GeoapifyContext>
-              </div>
-            </div>
-
-            <DateInput
-              label={
-                <>
-                  Date of Incident <span style={{ color: 'red' }}>*</span>
-                </>
-              }
-              placeholder="Select date"
-              value={formData.date ? new Date(formData.date) : null}
-              onChange={(date) =>
-                handleChange(
-                  'date',
-                  date
-                    ? new Date(
-                        date.getTime() - date.getTimezoneOffset() * 60000
-                      )
-                        .toISOString()
-                        .split('T')[0]
-                    : ''
-                )
-              }
-              valueFormat="MMMM D, YYYY"
-              error={errors.date}
-            />
-
-            <Button
-              type="submit"
-              loading={createCrimeReport.isPending}
-              fullWidth
-              mt="md"
+          <div>
+            <Text size="sm" fw={500} mb={4}>
+              Location <span style={{ color: 'red' }}>*</span>
+            </Text>
+            <div
+              style={{
+                border: errors.location
+                  ? '1px solid var(--mantine-color-red-filled)'
+                  : 'none',
+                borderRadius: '4px',
+              }}
             >
-              {createCrimeReport.isPending ? 'Submitting...' : 'Submit Report'}
-            </Button>
-          </Stack>
-        </form>
-      </Paper>
-    </Container>
+              <GeoapifyContext apiKey="1e74a0294756437d92e735bad855630f">
+                <GeoapifyGeocoderAutocomplete
+                  placeholder="Search for address"
+                  value={formData.location}
+                  type={'street'}
+                  lang={'en'}
+                  limit={5}
+                  filterByCountryCode={['us']}
+                  placeSelect={handleAddressSelect}
+                />
+              </GeoapifyContext>
+            </div>
+          </div>
+
+          <DateInput
+            label={
+              <>
+                Date of Incident <span style={{ color: 'red' }}>*</span>
+              </>
+            }
+            placeholder="Select date"
+            value={formData.date ? new Date(formData.date) : null}
+            onChange={(date) =>
+              handleChange(
+                'date',
+                date
+                  ? new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+                      .toISOString()
+                      .split('T')[0]
+                  : ''
+              )
+            }
+            valueFormat="MMMM D, YYYY"
+            error={errors.date}
+          />
+
+          <Button
+            type="submit"
+            loading={createCrimeReport.isPending}
+            fullWidth
+            mt="md"
+          >
+            {createCrimeReport.isPending ? 'Submitting...' : 'Submit Report'}
+          </Button>
+        </Stack>
+      </form>
+    </Stack>
   )
 }

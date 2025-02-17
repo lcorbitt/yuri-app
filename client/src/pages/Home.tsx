@@ -35,7 +35,7 @@ export const Home = () => {
         </Box>
 
         {/* Map */}
-        <Paper shadow="md" style={{ flex: 1, height: '100%' }}>
+        <Paper shadow="md" style={{ flex: 1, height: '100%', zIndex: 1 }}>
           <Map />
         </Paper>
       </Box>
